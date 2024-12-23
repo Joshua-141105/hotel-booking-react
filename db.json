@@ -1,0 +1,138 @@
+{
+  "users": [
+    {
+      "username": "abc",
+      "password": "123",
+      "id": 1
+    },
+    {
+      "username": "kiran",
+      "password": "kiran",
+      "id": 2
+    }
+  ],
+  "admins": [
+    {
+      "username": "admin",
+      "password": "password",
+      "id": 1
+    }
+  ],
+  "hotels": [
+    {
+      "name": "Hotel Sunshine",
+      "image": "/images/1.jpg",
+      "location": "New York",
+      "available": true,
+      "id": 1
+    },
+    {
+      "id": 2,
+      "name": "Sea View Resort",
+      "location": "California",
+      "available": false,
+      "image": "/images/2.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Mountain Retreat",
+      "location": "Colorado",
+      "available": true,
+      "image": "/images/3.jpg"
+    },
+    {
+      "name": "City Center Hotel",
+      "image": "/images/4.jpg",
+      "location": "Chicago",
+      "available": true,
+      "id": 4
+    },
+    {
+      "id": 5,
+      "name": "Beachside Inn",
+      "location": "Florida",
+      "available": false,
+      "image": "/images/5.jpg"
+    }
+  ],
+  "roomDetails": [
+    {
+      "Single": {
+        "count": "2",
+        "price": 100
+      },
+      "Double": {
+        "count": 4,
+        "price": 150
+      },
+      "Deluxe": {
+        "count": 2,
+        "price": 200
+      },
+      "id": 1
+    },
+    {
+      "id": 3,
+      "roomsAvailable": 12,
+      "Single": {
+        "count": 5,
+        "price": 110
+      },
+      "Double": {
+        "count": 4,
+        "price": 160
+      },
+      "Deluxe": {
+        "count": 3,
+        "price": 210
+      }
+    },
+    {
+      "Single": {
+        "count": 5,
+        "price": 120
+      },
+      "Double": {
+        "count": 3,
+        "price": 170
+      },
+      "Deluxe": {
+        "count": 3,
+        "price": 220
+      },
+      "id": 4
+    },
+    {
+      "Single": {
+        "count": 2,
+        "price": 130
+      },
+      "Double": {
+        "count": 5,
+        "price": 180
+      },
+      "Deluxe": {
+        "count": 2,
+        "price": 230
+      },
+      "id": 6
+    }
+  ],
+  "reviews": [
+    {
+      "id": 1,
+      "name": "Alice",
+      "review": "Great experience!"
+    },
+    {
+      "id": 2,
+      "name": "Bob",
+      "review": "Good service but a bit pricey."
+    },
+    {
+      "id": 3,
+      "name": "You",
+      "review": "hello"
+    }
+  ]
+}

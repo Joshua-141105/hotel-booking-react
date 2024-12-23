@@ -1,0 +1,100 @@
+.user-reviews {
+  margin: 20px auto;
+  width: 50%;
+  background-color: white;
+  text-align: center;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.user-reviews ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.user-reviews li {
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.user-reviews strong {
+  color: #007BFF;
+}
+
+.user-reviews form {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.user-reviews input[type="text"],
+.user-reviews input[type="number"] {
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 80%;
+  margin-bottom: 10px;
+}
+
+.user-reviews button {
+  padding: 10px 20px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.user-reviews button:hover {
+  background-color: #0056b3;
+}
+
+.hotel-details {
+  text-align: center;
+  width: 80%;
+  margin: 0 auto;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-top: 20px;
+  background-color: #f9f9f9;
+}
+
+.btn {
+  width: 120px;
+}
+
+.centered-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Aligns content from the top */
+  align-items: center;
+  padding-top: 100px; /* Adds space at the top to prevent overlap */
+  height: auto; /* Adjusts height automatically based on content */
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+.admin-reviews-container {
+  background-image: linear-gradient(
+      rgba(0, 0, 0, 0.67),
+      rgba(128, 128, 128, 0.751) 
+    ),
+    url('/public/images/8.jpg');
+    background-color: black;
+    height: 280vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 0px;
+}

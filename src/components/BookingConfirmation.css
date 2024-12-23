@@ -1,0 +1,87 @@
+/* BookingConfirmation.css */
+.booking-confirmation-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 40px;
+  width: 94.75%;
+  align-self: center;
+  background-image: linear-gradient(
+      rgba(0, 0, 0, 0.67), /* Dark grey at the top */
+      rgba(128, 128, 128, 0.751) /* Lighter grey towards the bottom */
+    ),
+    url('/public/images/8.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 0px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.booking-confirmation {
+  flex: 1;
+  margin-right: 20px;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.booking-confirmation h2 {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.booking-confirmation p {
+  font-size: 16px;
+  color: #555;
+  line-height: 1.6;
+}
+
+.booking-confirmation button {
+  padding: 10px 20px;
+  background-color: #2196F3; /* Material UI primary blue */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.booking-confirmation button:hover {
+  background-color: #1976D2; /* Material UI dark blue */
+}
+
+.hotel-image-container {
+  width: 400px;
+  padding-top: 0;
+  padding-right: 10px;
+}
+
+.hotel-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  margin-bottom: 10px;
+}
+
+.star-rating {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.star {
+  font-size: 28px;
+  color: lightgray;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.star.filled {
+  color: gold;
+}
+

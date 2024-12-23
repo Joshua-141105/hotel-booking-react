@@ -1,0 +1,48 @@
+.user-reviews {
+    margin: 20px 0;
+  }
+  
+  .user-reviews ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .user-reviews li {
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 4px;
+  }
+  
+  .user-reviews strong {
+    color: #007BFF;
+  }
+  
+  .user-reviews form {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .user-reviews input[type="text"] {
+    padding: 5px;
+    border: 1px solid #ddd;
+    width: 100%;
+    border-radius: 4px;
+  }
+  
+  .user-reviews button {
+    padding: 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .user-reviews button:hover {
+    background-color: #0056b3;
+  }
+  

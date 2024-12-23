@@ -1,0 +1,44 @@
+.homepage {
+  text-align: center;
+  padding: 50px 20px;
+  background-color: black;
+  height: 582px;
+}
+
+.homepage-header {
+  display: flex; /* Use flexbox */
+  flex-direction: column; /* Align children vertically */
+  justify-content: center; /* Center content vertically */
+  align-items: center; /* Center content horizontally */
+  background-color: rgb(83, 233, 233);
+  width: 50%;
+  height: 500px;
+  margin: 0 auto; /* Center the header section itself */
+}
+
+.homepage-header h1 {
+  font-size: 36px;
+  color: #333;
+}
+
+.homepage-header p {
+  font-size: 18px;
+  color: #777;
+  margin: 20px 0;
+}
+
+.explore-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  margin-top: 20px; /* Add margin for spacing */
+}
+
+.explore-button:hover {
+  background-color: #0056b3;
+}

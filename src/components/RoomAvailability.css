@@ -1,0 +1,46 @@
+.room-availability {
+    margin: 20px 0;
+  }
+  
+  .room-availability form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .room-availability label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #000000;
+  }
+  
+  .room-availability input[type="date"] {
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .room-availability button {
+    padding: 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .room-availability button:hover {
+    background-color: #0056b3;
+  }
+.error-message {
+  color: red;
+  margin-top: 10px;
+}
+.room-availability img{
+  width: 50%;
+  height: 50%;
+}
