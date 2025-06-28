@@ -1,0 +1,23 @@
+.booking-confirmation-print {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+
+.booking-confirmation-print h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.booking-confirmation-print p {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.booking-confirmation-print ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.booking-confirmation-print li {
+  margin-bottom: 5px;
+}

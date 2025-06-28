@@ -1,0 +1,12 @@
+
+.guest-login-page {
+    text-align: center;
+    padding: 20px;
+    height: 689px;
+    background-color: black;
+  }
+  
+  .guest-login-page h1 {
+    font-size: 35px;
+    color: #ffffff;
+  }

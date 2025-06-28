@@ -1,0 +1,10 @@
+
+.containe {
+  max-width: 800px;
+  margin: 50px auto;
+  background-color: rgba(247, 14, 14, 0.726);
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(150, 248, 215, 0.8), 0 0 30px rgba(129, 247, 237, 0.6);
+}
