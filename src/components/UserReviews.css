@@ -1,0 +1,96 @@
+/* UserReviews.css */
+.user-reviews {
+  margin: 20px 0;
+  padding: 15px;
+  min-width: 80%;
+  align-self: center;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.user-reviews h2 {
+  font-size: 20px;
+  color: #333;
+}
+
+.user-reviews ul {
+  list-style-type: none;
+  align-items: center;
+  align-content: center;
+  align-self: center;
+  padding: 0;
+}
+
+.user-reviews li {
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  padding: 10px;
+  width: 80%;
+  gap: 10%;
+  align-self: center;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.user-reviews li:hover {
+  background-color: #f9f9f9; /* Light gray on hover */
+}
+
+.user-reviews strong {
+  color: #007BFF;
+}
+
+.user-reviews form {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.user-reviews input[type="text"] {
+  padding: 10px;
+  border: 1px solid #ddd;
+  min-width: 100%;
+  border-radius: 4px;
+  transition: border-color 0.3s ease;
+}
+
+.user-reviews input[type="text"]:focus {
+  border-color: #007BFF; /* Change border color on focus */
+}
+
+.user-reviews button {
+  padding: 10px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.user-reviews button:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .user-reviews {
+    padding: 10px; 
+    /* Adjust padding for smaller screens */
+  }
+
+  .user-reviews h2 {
+    font-size: 18px; /* Smaller heading on mobile */
+  }
+
+  .user-reviews input[type="text"] {
+    font-size: 14px; /* Smaller input text on mobile */
+  }
+
+  .user-reviews button {
+    font-size: 14px; /* Smaller button text on mobile */
+  }
+}

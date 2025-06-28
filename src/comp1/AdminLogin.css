@@ -1,0 +1,13 @@
+/* src/components/AdminLogin.css */
+
+.admin-login-page {
+    text-align: center;
+    padding: 20px;
+    background-color: black;
+  }
+  
+  .admin-login-page h2 {
+    font-size: 24px;
+    color: #ffffff;
+  }
+  

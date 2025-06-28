@@ -1,0 +1,138 @@
+/* BookingForm.css */
+.booking-form {
+    background-color: white;
+    max-width: 600px;
+    margin: 22px 0;
+    border-radius: 8px; /* Added border-radius for rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Added shadow for depth */
+}
+
+.booking-form form {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 300px;
+    height: auto; /* Adjust height to auto for responsiveness */
+    margin: 0 auto;
+}
+
+.booking-form label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 15px;
+    color: #333;
+}
+
+.booking-form input[type="text"],
+.booking-form input[type="date"],
+.booking-form input[type="email"],
+.booking-form input[type="number"] {
+    padding: 8px; /* Increased padding for better touch targets */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: border 0.3s ease; /* Added transition for input */
+}
+
+.booking-form input[type="text"]:focus,
+.booking-form input[type="date"]:focus,
+.booking-form input[type="email"]:focus,
+.booking-form input[type="number"]:focus {
+    border: 1px solid #28a745; /* Change border color on focus */
+    outline: none; /* Remove default outline */
+}
+
+.booking-form button {
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Added transition */
+}
+
+.booking-form button:hover {
+    background-color: #218838;
+    transform: scale(1.05); /* Scale effect on hover */
+}
+
+.booking-form-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.booking-form {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.hotel-info {
+    padding-top: 10%;
+    padding-right: 5%;
+    width: 400px;
+}
+
+.hotel-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    transition: transform 0.3s ease; /* Added transition for image */
+}
+
+.hotel-image:hover {
+    transform: scale(1.05); /* Scale effect on hover */
+}
+
+.hotel-info h3 {
+    color: #333; /* Changed to a darker color for better contrast */
+    font-size: 30px;
+}
+
+.reviews-list {
+    list-style: none;
+    padding: 0;
+    color: #333; /* Changed to a darker color for better contrast */
+    margin-top: 20px;
+}
+
+.review-item {
+    margin-bottom: 15px;
+}
+
+.review-item p {
+    margin: 0;
+    font-size: 14px;
+    color: #555; /* Changed to a darker color for better contrast */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .booking-form-container {
+        flex-direction: column; /* Stack elements on smaller screens */
+        align-items: center; /* Center align */
+    }
+
+    .booking-form {
+        margin-right: 0; /* Remove margin on smaller screens */
+        width: 90%; /* Make booking form responsive */
+    }
+
+    .hotel-info {
+        width: 90%; /* Make hotel info responsive */
+        padding-top: 20px; /* Add padding for spacing */
+    }
+}
+
+@media (max-width: 480px) {
+    .hotel-info h3 {
+        font-size: 24px; /* Smaller font size for h3 */
+    }
+
+    .booking-form button {
+        padding: 8px; /* Adjust button padding for smaller screens */
+        font-size: 14px; /* Smaller font size for button */
+    }
+}
