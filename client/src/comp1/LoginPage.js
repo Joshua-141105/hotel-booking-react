@@ -1,30 +1,42 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import './LoginPage.css';
+import { useNavigate } from 'react-router-dom';
+import './LoginPage 1.css'; 
 
 function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  
+  const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:8080/users'); // Fetch users from db.json
-      const users = await response.json();
+      const response = await fetch(`${BASE_URL}/admins`);
 
-      // Check if a user with the provided username and password exists
-      const user = users.find(user => user.username === username && user.password === password);
+      if (!response.ok) {
+        throw new Error('Failed to fetch admin data');
+      }
+
+      const admins = await response.json();
+
+      const user = admins.find(
+        (user) => user.username === username && user.password === password
+      );
 
       if (user) {
-        navigate('/home');
+        navigate('/admin');
       } else {
         alert('Invalid username or password');
       }
     } catch (error) {
-      console.error('Error during login:', error);
+      console.error('Login error:', error);
       alert('An error occurred during login. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -52,15 +64,17 @@ function LoginPage() {
                 required
               />
             </label>
-            <button type="submit">Login</button>
+            <button type="submit" disabled={loading}>
+              {loading ? 'Logging in...' : 'Login'}
+            </button>
           </form>
-          <p>
-            Don't have an account? <Link to="/register">Register</Link>
-          </p>
         </div>
         <div
           className="login-image"
-          style={{ backgroundImage: "url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSLU5_eUUGBfxfxRd4IquPiEwLbt4E_6RYMw&s')" }}
+          style={{
+            backgroundImage:
+              "url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSLU5_eUUGBfxfxRd4IquPiEwLbt4E_6RYMw&s')",
+          }}
         />
       </div>
     </div>

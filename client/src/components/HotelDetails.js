@@ -23,10 +23,13 @@ function HotelDetails() {
   const [loadingRooms, setLoadingRooms] = useState(true);
   const [roomError, setRoomError] = useState(false);
 
+  
+  const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   useEffect(() => {
     const fetchHotelData = async () => {
       try {
-        const hotelResponse = await axios.get(`http://localhost:8080/hotels/${hotelId}`);
+        const hotelResponse = await axios.get(`${BASE_URL}/hotels/${hotelId}`);
         if (!hotelResponse.data || Object.keys(hotelResponse.data).length === 0) {
           setHotelError(true);
           setLoadingHotel(false);
@@ -56,11 +59,11 @@ function HotelDetails() {
             deluxeRooms: roomDetails.Deluxe?.count || 0,
           });
           setLoadingRooms(false);
-        } catch (error) {
-          console.warn("Room fetch failed:", error);
+        } catch {
+          setRoomError(true);
+          setLoadingRooms(false);
         }
-      } catch (error) {
-        console.error("Hotel fetch failed:", error);
+      } catch {
         setHotelError(true);
         setLoadingHotel(false);
       }
@@ -74,7 +77,7 @@ function HotelDetails() {
     const isRoomCountField = ['singleRooms', 'doubleRooms', 'deluxeRooms'].includes(name);
     setFormData({
       ...formData,
-      [name]: isRoomCountField ? parseInt(value, 10) : value,
+      [name]: isRoomCountField ? Math.max(0, parseInt(value, 10)) : value,
     });
   };
 
@@ -96,23 +99,27 @@ function HotelDetails() {
       navigate('/admin');
     } catch (error) {
       console.error("Error updating hotel data:", error);
+      alert("Failed to update hotel. Please try again.");
     }
   };
 
   const handleDelete = async () => {
+    if (!window.confirm("Are you sure you want to delete this hotel?")) return;
+
     try {
       await axios.delete(`http://localhost:8080/hotels/${hotelId}`);
       await axios.delete(`http://localhost:8080/roomDetails/${hotelId}`);
       navigate('/admin-reviews');
     } catch (error) {
       console.error("Error deleting hotel:", error);
+      alert("Failed to delete hotel.");
     }
   };
 
   if (loadingHotel) {
     return (
       <div className="loading-container">
-        <div className="spinner"></div>
+        <div className="spinner" />
         <p>Loading hotel details...</p>
       </div>
     );
@@ -130,23 +137,25 @@ function HotelDetails() {
     <div style={{ backgroundColor: 'black' }}>
       <Navbar1 />
       <br />
-      <div className='container'>
+      <div className="container">
         <div>
           <h2>Hotel Details</h2>
           <img src={hotel.image} alt={hotel.name} style={{ width: '100%', height: 'auto' }} />
           <h2>{hotel.name}</h2>
           <p>Location: {hotel.location}</p>
-          <br />
-          <h3>Room Details:</h3>
+          <h3>Room Details</h3>
+
           {loadingRooms && !roomError && (
             <div className="loading-container">
-              <div className="spinner"></div>
+              <div className="spinner" />
               <p>Loading room details...</p>
             </div>
           )}
+
           {roomError && (
             <p style={{ color: 'red' }}>❌ Error fetching room details. Please try again later.</p>
           )}
+
           {!loadingRooms && !roomError && (
             <>
               <p>Single Rooms: {formData.singleRooms}</p>
@@ -188,7 +197,7 @@ function HotelDetails() {
           <br />
           <button type="submit">Update Hotel</button>
           <br />
-          <button onClick={handleDelete} style={{ marginTop: '10px', backgroundColor: 'red', color: 'white' }}>
+          <button type="button" onClick={handleDelete} style={{ marginTop: '10px', backgroundColor: 'red', color: 'white' }}>
             Delete Hotel
           </button>
         </form>

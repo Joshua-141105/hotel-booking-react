@@ -5,13 +5,14 @@ function UserReviews() {
   const [reviews, setReviews] = useState([]);
   const [newReview, setNewReview] = useState("");
 
-  // Fetch reviews from db.json
+  const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await fetch('http://localhost:8080/reviews');
+        const response = await fetch(`${BASE_URL}/reviews`);
         const data = await response.json();
-        setReviews(data); // Set the fetched reviews into state
+        setReviews(data);
       } catch (error) {
         console.error("Error fetching reviews:", error);
       }
@@ -22,20 +23,23 @@ function UserReviews() {
 
   const handleReviewSubmit = async (e) => {
     e.preventDefault();
-    const nextId = reviews.length ? reviews[reviews.length - 1].id + 1 : 1; // Incrementing ID based on existing reviews
-    const newUserReview = { id: nextId, name: "You", review: newReview };
+    if (!newReview.trim()) {
+      alert("Please enter a review before submitting.");
+      return;
+    }
 
-    // Submit the new review to db.json
+    const nextId = reviews.length ? reviews[reviews.length - 1].id + 1 : 1;
+    const newUserReview = { id: nextId, name: "You", review: newReview.trim() };
+
     try {
-      await fetch('http://localhost:8080/reviews', {
+      await fetch(`${BASE_URL}/reviews`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newUserReview),
       });
-      setReviews((prevReviews) => [...prevReviews, newUserReview]); // Add new review to the state
-      setNewReview(""); // Clear input field
+
+      setReviews((prev) => [...prev, newUserReview]);
+      setNewReview("");
     } catch (error) {
       console.error("Error submitting review:", error);
     }
@@ -45,30 +49,26 @@ function UserReviews() {
     <div className="user-reviews">
       <h2>User Reviews</h2>
       <ul>
-        <center>
-
-        {reviews.length > 0 ? ( // Check if there are reviews to display
-          reviews.map(review => (
+        {reviews.length > 0 ? (
+          reviews.map((review) => (
             <li key={review.id}>
               <strong>{review.name}:</strong> {review.review}
             </li>
           ))
         ) : (
-          <li>No reviews yet.</li> // Message if there are no reviews
+          <li>No reviews yet.</li>
         )}
-        </center>
       </ul>
+
       <form onSubmit={handleReviewSubmit}>
-        <label>
-          Add a review:
-          <br /><br />
-          <input 
-            type="text" 
-            value={newReview} 
-            onChange={(e) => setNewReview(e.target.value)} 
-            placeholder="Write your review here..." // Placeholder for user input
-          />
-        </label>
+        <label htmlFor="review-input">Add a review:</label>
+        <input
+          id="review-input"
+          type="text"
+          value={newReview}
+          onChange={(e) => setNewReview(e.target.value)}
+          placeholder="Write your review here..."
+        />
         <button type="submit">Submit</button>
       </form>
     </div>

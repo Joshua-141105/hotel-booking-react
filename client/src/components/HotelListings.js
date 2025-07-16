@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './HotelListings.css';
 import Navbar from '../comp1/Navbar';
@@ -7,23 +7,25 @@ function HotelListings() {
   const [hotels, setHotels] = useState([]);
   const navigate = useNavigate();
 
+  const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   useEffect(() => {
-    // Fetch hotels from db.json
     const fetchHotels = async () => {
       try {
-        const response = await fetch('http://localhost:8080/hotels');
+        const response = await fetch(`${BASE_URL}/hotels`);
         const data = await response.json();
         setHotels(data);
       } catch (error) {
         console.error('Error fetching hotels:', error);
       }
     };
-
     fetchHotels();
   }, []);
 
-  const handleHotelClick = (id) => {
-    navigate(`/room-availability/${id}`);
+  const handleHotelClick = (id, available) => {
+    if (available) {
+      navigate(`/room-availability/${id}`);
+    }
   };
 
   return (
@@ -33,11 +35,21 @@ function HotelListings() {
         <h1>Hotel Listings</h1>
         <ul>
           {hotels.map(hotel => (
-            <li key={hotel.id}>
-              <img src={hotel.image} alt={hotel.name} className="hotel-image" onClick={() => handleHotelClick(hotel.id)} />
-              <h3 onClick={() => handleHotelClick(hotel.id)}>{hotel.name}</h3>
+            <li
+              key={hotel.id}
+              className={`hotel-card ${hotel.available ? 'available' : 'unavailable'}`}
+              onClick={() => handleHotelClick(hotel.id, hotel.available)}
+            >
+              <img
+                src={hotel.image}
+                alt={hotel.name}
+                className="hotel-image"
+              />
+              <span className={`status-badge ${hotel.available ? 'green' : 'red'}`}>
+                {hotel.available ? 'Available' : 'Unavailable'}
+              </span>
+              <h3>{hotel.name}</h3>
               <p>Location: {hotel.location}</p>
-              {!hotel.available && <p>Rooms unavailable</p>}
             </li>
           ))}
         </ul>

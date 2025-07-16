@@ -17,13 +17,14 @@ function BookingConfirmation() {
     paymentMethod,
   } = location.state || {};
 
+  const BASE_URL = process.env.REACT_APP_API_BASE_URL;
   const [userRating, setUserRating] = useState(hotel?.rating || 0);
   const [hoverRating, setHoverRating] = useState(0);
   const [message, setMessage] = useState(null);
-  
+
   const totalAmount = Object.keys(selectedRooms).reduce((total, roomType) => {
     const price = roomDetails[roomType]?.price || 0;
-    return total + (price * selectedRooms[roomType]);
+    return total + price * selectedRooms[roomType];
   }, 0);
 
   const handleStarClick = (ratingValue) => {
@@ -31,49 +32,35 @@ function BookingConfirmation() {
     setMessage("Thank You for your feedback!!!");
   };
 
-  const handleStarMouseEnter = (ratingValue) => {
-    setHoverRating(ratingValue);
-  };
+  const handleStarMouseEnter = (ratingValue) => setHoverRating(ratingValue);
+  const handleStarMouseLeave = () => setHoverRating(0);
 
-  const handleStarMouseLeave = () => {
-    setHoverRating(0);
-  };
+  const handleBooking = async () => {
+    try {
+      const roomDetailsResponse = await axios.get(`${BASE_URL}/roomDetails/${hotel.id}`);
+      const existingRoomDetails = roomDetailsResponse.data;
 
- const handleBooking = async () => {
-  try {
-    // Fetch existing room details from the database
-    const roomDetailsResponse = await axios.get(`http://localhost:8080/roomDetails/${hotel.id}`);
-    const existingRoomDetails = roomDetailsResponse.data;
+      const roomUpdatePromises = Object.keys(selectedRooms).map(async (roomType) => {
+        if (selectedRooms[roomType] > 0) {
+          const roomDetail = existingRoomDetails[roomType];
+          const updatedCount = roomDetail.count - selectedRooms[roomType];
+          existingRoomDetails[roomType].count = updatedCount;
 
-    const roomUpdatePromises = Object.keys(selectedRooms).map(async (roomType) => {
-      if (selectedRooms[roomType] > 0) {
-        const roomDetail = existingRoomDetails[roomType];
-        const updatedCount = roomDetail.count - selectedRooms[roomType];
-
-        // Update the count for the specific room type
-        existingRoomDetails[roomType].count = updatedCount;
-
-        // Check if all rooms of this type are booked
-        if (updatedCount <= 0) {
-          // Set hotel availability to false
-          await axios.put(`http://localhost:8080/hotels/${hotel.id}`, {
-            available: false,
-          });
+          if (updatedCount <= 0) {
+            await axios.put(`${BASE_URL}/hotels/${hotel.id}`, { available: false });
+          }
         }
-      }
-    });
+      });
 
-    // Send the complete room details back to the database
-    await Promise.all(roomUpdatePromises);
-    await axios.put(`http://localhost:8080/roomDetails/${hotel.id}`, existingRoomDetails);
-    
-    alert("Rooms booked successfully!");
+      await Promise.all(roomUpdatePromises);
+      await axios.put(`${BASE_URL}/roomDetails/${hotel.id}`, existingRoomDetails);
 
-  } catch (error) {
-    console.error("Error updating room details:", error);
-    alert("There was an error processing your booking.");
-  }
-};
+      alert("Rooms booked successfully!");
+    } catch (error) {
+      console.error("Error updating room details:", error);
+      alert("There was an error processing your booking.");
+    }
+  };
 
   return (
     <div>
@@ -87,19 +74,21 @@ function BookingConfirmation() {
           <p><b>Check-In Date:</b> {new Date(checkinDate).toLocaleDateString()}</p>
           <p><b>Check-Out Date:</b> {new Date(checkoutDate).toLocaleDateString()}</p>
           <h2>Room Details</h2>
-          {Object.keys(selectedRooms).map((roomType) => (
+          {Object.keys(selectedRooms).map((roomType) =>
             selectedRooms[roomType] > 0 && (
               <p key={roomType}>
                 <b>{roomType} Rooms:</b> {selectedRooms[roomType]} (Price: ${roomDetails[roomType]?.price || 0} per night)
               </p>
             )
-          ))}
+          )}
           <p><b>Total Rooms Booked:</b> {Object.values(selectedRooms).reduce((sum, count) => sum + count, 0)}</p>
           <p><b>Total Amount:</b> ${totalAmount.toFixed(2)}</p>
-          <p><b>Payment Method: </b> {paymentMethod}</p>
+          <p><b>Payment Method:</b> {paymentMethod}</p>
+
           <Button variant="contained" color="primary" onClick={handleBooking}>
             Confirm Booking
           </Button>
+
           <Button variant="contained" color="primary" onClick={() => {
             const printWindow = window.open('', '_blank');
             printWindow.document.write(`
@@ -112,10 +101,8 @@ function BookingConfirmation() {
                     background-color: #f9f9f9;
                     padding: 40px;
                     color: #333;
-                    align-items: center;
                   }
                   .container {
-                    align-items: center;
                     background-color: #ffffff;
                     border-radius: 10px;
                     padding: 30px 40px;
@@ -155,19 +142,17 @@ function BookingConfirmation() {
                 </style>
               </head>
               <body>
-                <center>
-                  <div class="container">
-                    <h2>Booking Confirmation</h2>
-                    <p>Thank you for your booking!!!!</p>
-                    <p><b>Hotel Name:</b> ${hotel?.name}</p>
-                    <p><b>Location:</b> ${hotel?.location}</p>
-                    <p><b>Check-In Date:</b> ${new Date(checkinDate).toLocaleDateString()}</p>
-                    <p><b>Check-Out Date:</b> ${new Date(checkoutDate).toLocaleDateString()}</p>
-                    <p><b>Total Rooms Booked:</b> ${Object.values(selectedRooms).reduce((sum, count) => sum + count, 0)}</p>
-                    <p class="total"><b>Total Amount:</b> $${totalAmount.toFixed(2)}</p>
-                    <div class="footer">Powered by HotelReservationSystem.com</div>
-                  </div>
-                </center>
+                <div class="container">
+                  <h2>Booking Confirmation</h2>
+                  <p>Thank you for your booking!!!!</p>
+                  <p><b>Hotel Name:</b> ${hotel?.name}</p>
+                  <p><b>Location:</b> ${hotel?.location}</p>
+                  <p><b>Check-In Date:</b> ${new Date(checkinDate).toLocaleDateString()}</p>
+                  <p><b>Check-Out Date:</b> ${new Date(checkoutDate).toLocaleDateString()}</p>
+                  <p><b>Total Rooms Booked:</b> ${Object.values(selectedRooms).reduce((sum, count) => sum + count, 0)}</p>
+                  <p class="total"><b>Total Amount:</b> $${totalAmount.toFixed(2)}</p>
+                  <div class="footer">Powered by HotelReservationSystem.com</div>
+                </div>
               </body>
               </html>
             `);

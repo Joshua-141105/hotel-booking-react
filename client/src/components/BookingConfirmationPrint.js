@@ -1,5 +1,5 @@
 import React from 'react';
-import './BookingConfirmationPrint.css'; // Optional CSS for print styles
+import './BookingConfirmationPrint.css';
 
 const BookingConfirmationPrint = React.forwardRef(({
   hotel,
@@ -10,24 +10,27 @@ const BookingConfirmationPrint = React.forwardRef(({
   paymentMethod,
   totalAmount
 }, ref) => {
-  const formattedCheckinDate = checkinDate ? new Date(checkinDate).toISOString().split('T')[0] : '';
-  const formattedCheckoutDate = checkoutDate ? new Date(checkoutDate).toISOString().split('T')[0] : '';
+  const formattedCheckinDate = checkinDate ? new Date(checkinDate).toLocaleDateString() : '';
+  const formattedCheckoutDate = checkoutDate ? new Date(checkoutDate).toLocaleDateString() : '';
+  const totalRooms = Object.values(selectedRooms || {}).reduce((sum, count) => sum + count, 0);
 
   return (
     <div ref={ref} className="booking-confirmation-print">
       <h2>Booking Confirmation</h2>
-      <p>Thank you for your booking!!!!</p>
+      <p>Thank you for your booking!</p>
       <p><b>Hotel Name:</b> {hotel?.name}</p>
       <p><b>Location:</b> {hotel?.location}</p>
       <p><b>Check-In Date:</b> {formattedCheckinDate}</p>
       <p><b>Check-Out Date:</b> {formattedCheckoutDate}</p>
-      <p><b>Total Rooms Booked:</b> {Object.values(selectedRooms).reduce((sum, count) => sum + count, 0)}</p>
+      <p><b>Total Rooms Booked:</b> {totalRooms}</p>
       <p><b>Room Details:</b></p>
       <ul>
-        {Object.keys(selectedRooms).map((roomType) => (
-          <li key={roomType}>
-            {roomType} Rooms: {selectedRooms[roomType]} ( Price: ${roomDetails[roomType]?.price || 0} )
-          </li>
+        {Object.keys(selectedRooms || {}).map((roomType) => (
+          selectedRooms[roomType] > 0 && (
+            <li key={roomType}>
+              {roomType} Rooms: {selectedRooms[roomType]} (Price: ${roomDetails?.[roomType]?.price || 0})
+            </li>
+          )
         ))}
       </ul>
       <p><b>Payment Method:</b> {paymentMethod}</p>
@@ -36,4 +39,4 @@ const BookingConfirmationPrint = React.forwardRef(({
   );
 });
 
-export default BookingConfirmationPrint;
+export default BookingConfirmationPrint;  

@@ -1,5 +1,3 @@
-// src/components/AdminLogin.js
-
 import React from 'react';
 import './AdminLogin.css';
 import LoginPage from './LoginPage 1';

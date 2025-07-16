@@ -1,5 +1,3 @@
-// src/components/LoginSelectionPage.js
-
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LoginSelectionPage.css';
@@ -17,13 +15,12 @@ function LoginSelectionPage() {
 
   return (
     <div className="login-selection-page">
-      <div className='a1'>
-        <h2>Hotel Reservation System</h2><br></br>
+      <div className="a1">
+        <h2>Hotel Reservation System</h2>
         <div className="login-buttons">
           <button onClick={handleGuestLogin} className="guest-login-button">
             Guest Login
           </button>
-          <br></br>
           <button onClick={handleAdminLogin} className="admin-login-button">
             Hotel Admin Login
           </button>
